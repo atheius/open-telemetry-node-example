@@ -4,11 +4,11 @@
   "description": "Example node app with OpenTelemetry instrumentation",
   "main": "index.js",
   "scripts": {
-    "start": "node --require ./src/instrumentation.js ./src/app.js",
+    "start": "APP_NAME=app-a node --require ./src/instrumentation.js ./src/app.js",
     "build": "docker build . -t app-a"
   },
   "keywords": [],
-  "author": "",
+  "author": "James Mugliston",
   "license": "ISC",
   "dependencies": {
     "@opentelemetry/api": "^1.9.0",
@@ -17,7 +17,7 @@
     "@opentelemetry/exporter-prometheus": "^0.53.0",
     "@opentelemetry/host-metrics": "^0.35.3",
     "@opentelemetry/instrumentation": "^0.53.0",
-    "@opentelemetry/sdk-metrics-base": "^0.31.0",
+    "@opentelemetry/sdk-metrics": "^1.26.0",
     "@opentelemetry/sdk-node": "^0.53.0",
     "axios": "^1.7.7",
     "express": "^4.21.0"

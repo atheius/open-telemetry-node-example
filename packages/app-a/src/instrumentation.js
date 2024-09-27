@@ -2,7 +2,7 @@ const { NodeSDK } = require("@opentelemetry/sdk-node");
 const {
   getNodeAutoInstrumentations,
 } = require("@opentelemetry/auto-instrumentations-node");
-const { MeterProvider } = require("@opentelemetry/sdk-metrics-base");
+const { MeterProvider } = require("@opentelemetry/sdk-metrics");
 const { HostMetrics } = require("@opentelemetry/host-metrics");
 const { PrometheusExporter } = require("@opentelemetry/exporter-prometheus");
 const {
@@ -12,7 +12,7 @@ const { Resource } = require("@opentelemetry/resources");
 const {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
-  ATTR_DEPLOYMENT_ENVIRONMENT
+  ATTR_DEPLOYMENT_ENVIRONMENT,
 } = require("@opentelemetry/semantic-conventions");
 
 const APP_NAME = process.env.APP_NAME;

@@ -2,6 +2,9 @@
   "name": "open-telemetry-node-example",
   "version": "1.0.0",
   "description": "Example of how to use Open Telemetry to instrument distributed node applications.",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "start": "docker-compose build && docker-compose up",
     "load-test": "node ./scripts/autocannon.js"
