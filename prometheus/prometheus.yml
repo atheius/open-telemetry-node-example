@@ -1,0 +1,5 @@
+scrape_configs:
+  - job_name: 'node-apps'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['app-a:9464', 'app-b:9464']
