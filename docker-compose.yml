@@ -1,10 +1,11 @@
 services:
   app-a:
-    build: ./packages/app-a
+    build:
+      context: ./packages/example-app/
     container_name: app-a
     hostname: app-a
     environment:
-      - APP_NAME=app-a
+      - APP_NAME=a
       - METRICS_HOST=app-a
       - METRICS_PORT=9464
       - TRACES_HOST=jaeger
@@ -14,11 +15,12 @@ services:
     restart: unless-stopped
 
   app-b:
-    build: ./packages/app-b
+    build:
+      context: ./packages/example-app/
     container_name: app-b
     hostname: app-b
     environment:
-      - APP_NAME=app-b
+      - APP_NAME=b
       - METRICS_HOST=app-a
       - METRICS_PORT=9464
       - TRACES_HOST=jaeger
@@ -43,21 +45,13 @@ services:
     image: jaegertracing/all-in-one
     container_name: jaeger
     hostname: jaeger
-    environment:
-      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
-      - COLLECTOR_OTLP_ENABLED=true
     ports:
       - "5775:5775/udp"
       - "6831:6831/udp"
       - "6832:6832/udp"
       - 5778:5778 
       - 16686:16686 
-      - 4317:4317 
-      - 4318:4318 
-      - 14250:14250 
       - 14268:14268 
-      - 14269:14269 
       - 9411:9411 
     restart: unless-stopped
-volumes:
-  prom_data:
+

@@ -39,5 +39,3 @@ Navigate to [http://localhost:16686](http://localhost:16686) to view traces in J
 ### Viewing metrics in Prometheus
 
 Navigate to [http://localhost:9090](http://localhost:9090) to view metrics in Prometheus.
-
-

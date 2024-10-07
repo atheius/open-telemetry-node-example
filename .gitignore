@@ -1,1 +1,6 @@
+.vscode
 node_modules
+dist
+/config.php
+**/package-lock.json
+!/package-lock.json

@@ -1,12 +1,13 @@
 {
-  "name": "open-telemetry-node-example",
+  "name": "@example/open-telemetry-node-example",
   "version": "1.0.0",
   "description": "Example of how to use Open Telemetry to instrument distributed node applications.",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "start": "docker-compose build && docker-compose up",
+    "build": "npm run prebuild -ws && docker-compose build",
+    "start": "npm run build && docker-compose up",
     "load-test": "node ./scripts/autocannon.js"
   },
   "keywords": [],
@@ -14,5 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "autocannon": "^7.15.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
   }
 }
