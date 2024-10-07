@@ -2,7 +2,11 @@
 
 This is an example of how to use Open Telemetry to instrument distributed node applications.
 
-We are running local instances of Jaeger (tracing) and Prometheus (metrics) to collect and visualize the data.
+Docker compose will run two example applications that communicate with each other over http endpoints, as well as instances of Jaeger (for tracing) and Prometheus (for metrics) to collect and visualize the data.
+
+See the diagram below for details.
+
+![Example application components](https://github.com/atheius/otel-node-example/raw/HEAD/open-telemetry-node-example.png 'Example application components')
 
 ## Getting started
 
