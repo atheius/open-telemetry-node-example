@@ -6,7 +6,7 @@ Docker compose will run two example applications that communicate with each othe
 
 See the diagram below for details.
 
-![Example application components](https://github.com/atheius/otel-node-example/raw/HEAD/open-telemetry-node-example.png 'Example application components')
+![Example application components](https://github.com/atheius/open-telemetry-node-example/raw/HEAD/otel-node-example.png 'Example application components')
 
 ## Getting started
 
