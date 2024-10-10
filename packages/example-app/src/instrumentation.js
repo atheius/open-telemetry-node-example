@@ -2,7 +2,10 @@ const { NodeSDK } = require('@opentelemetry/sdk-node')
 const {
   getNodeAutoInstrumentations,
 } = require('@opentelemetry/auto-instrumentations-node')
-const { MeterProvider } = require('@opentelemetry/sdk-metrics')
+const { metrics } = require('@opentelemetry/api')
+const {
+  MeterProvider,
+} = require('@opentelemetry/sdk-metrics')
 const { HostMetrics } = require('@opentelemetry/host-metrics')
 const { PrometheusExporter } = require('@opentelemetry/exporter-prometheus')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
@@ -22,15 +25,26 @@ if (!APP_NAME) {
   throw new Error('APP_NAME environment variables is required')
 }
 
+const resource = new Resource({
+  [ATTR_SERVICE_NAME]: `app-${APP_NAME}`,
+  [ATTR_SERVICE_VERSION]: '1.0.0',
+  [ATTR_DEPLOYMENT_ENVIRONMENT]: 'development',
+})
+
 const prometheusExporter = new PrometheusExporter({ port: METRICS_PORT })
 
-const meterProvider = new MeterProvider()
-meterProvider.addMetricReader(prometheusExporter)
+const meterProvider = new MeterProvider({
+  resource: resource,
+  readers: [prometheusExporter],
+});
+
+metrics.setGlobalMeterProvider(meterProvider);
 
 const hostMetrics = new HostMetrics({
-  meterProvider,
+  meterProvider: meterProvider,
   name: 'example-host-metrics',
 })
+
 hostMetrics.start()
 
 const sdk = new NodeSDK({
@@ -46,11 +60,7 @@ const sdk = new NodeSDK({
       },
     }),
   ],
-  resource: new Resource({
-    [ATTR_SERVICE_NAME]: `app-${APP_NAME}`,
-    [ATTR_SERVICE_VERSION]: '1.0.0',
-    [ATTR_DEPLOYMENT_ENVIRONMENT]: 'development',
-  }),
+  resource,
 })
 
 try {

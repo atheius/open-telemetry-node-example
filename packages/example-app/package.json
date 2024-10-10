@@ -4,7 +4,7 @@
   "description": "Example node app with OpenTelemetry instrumentation",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/app.js",
+    "start": "node --require ./src/instrumentation.js ./src/app.js",
     "prebuild": "cp ../../package-lock.json .",
     "build": "docker build . -t app-a"
   },
