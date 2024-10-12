@@ -3,9 +3,7 @@ const {
   getNodeAutoInstrumentations,
 } = require('@opentelemetry/auto-instrumentations-node')
 const { metrics } = require('@opentelemetry/api')
-const {
-  MeterProvider,
-} = require('@opentelemetry/sdk-metrics')
+const { MeterProvider } = require('@opentelemetry/sdk-metrics')
 const { HostMetrics } = require('@opentelemetry/host-metrics')
 const { PrometheusExporter } = require('@opentelemetry/exporter-prometheus')
 const { OTLPTraceExporter } = require('@opentelemetry/exporter-trace-otlp-http')
@@ -36,9 +34,9 @@ const prometheusExporter = new PrometheusExporter({ port: METRICS_PORT })
 const meterProvider = new MeterProvider({
   resource: resource,
   readers: [prometheusExporter],
-});
+})
 
-metrics.setGlobalMeterProvider(meterProvider);
+metrics.setGlobalMeterProvider(meterProvider)
 
 const hostMetrics = new HostMetrics({
   meterProvider: meterProvider,
@@ -48,13 +46,15 @@ const hostMetrics = new HostMetrics({
 hostMetrics.start()
 
 const sdk = new NodeSDK({
+  // Export traces to Jaeger
   traceExporter: new OTLPTraceExporter({
     url: `http://${TRACES_HOST}:${TRACES_PORT}/v1/traces`,
   }),
+  // Export metrics to Prometheus
   metricExporter: prometheusExporter,
   instrumentations: [
     getNodeAutoInstrumentations({
-      // only instrument fs if it is part of another trace
+      // only instrument fs if it is part of another trace (can be noisy)
       '@opentelemetry/instrumentation-fs': {
         requireParentSpan: true,
       },
