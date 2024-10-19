@@ -19,10 +19,6 @@ const METRICS_PORT = process.env.METRICS_PORT || 9464
 const TRACES_HOST = process.env.TRACES_HOST || 'jaeger'
 const TRACES_PORT = process.env.TRACES_PORT || 4318
 
-if (!APP_NAME) {
-  throw new Error('APP_NAME environment variables is required')
-}
-
 const resource = new Resource({
   [ATTR_SERVICE_NAME]: `app-${APP_NAME}`,
   [ATTR_SERVICE_VERSION]: '1.0.0',
