@@ -11,7 +11,6 @@ const { Resource } = require('@opentelemetry/resources')
 const {
   ATTR_SERVICE_NAME,
   ATTR_SERVICE_VERSION,
-  ATTR_DEPLOYMENT_ENVIRONMENT,
 } = require('@opentelemetry/semantic-conventions')
 
 const APP_NAME = process.env.APP_NAME || 'example'
@@ -22,7 +21,6 @@ const TRACES_PORT = process.env.TRACES_PORT || 4318
 const resource = new Resource({
   [ATTR_SERVICE_NAME]: `app-${APP_NAME}`,
   [ATTR_SERVICE_VERSION]: '1.0.0',
-  [ATTR_DEPLOYMENT_ENVIRONMENT]: 'development',
 })
 
 const prometheusExporter = new PrometheusExporter({ port: METRICS_PORT })
